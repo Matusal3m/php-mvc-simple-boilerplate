@@ -1,0 +1,27 @@
+{
+    "name": "rufi/core",
+    "description": "A hub to school convenient services",
+    "type": "project",
+    "require": {
+        "league/plates": "^3.6",
+        "php-di/php-di": "^7.1",
+        "latitude/latitude": "^4.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Http\\": "http",
+            "Http\\Core\\": "http/core",
+            "Http\\Controllers\\": "http/controllers",
+            "Http\\Routes\\": "http/routes",
+            "App\\": "app",
+            "Database\\": "database",
+            "Utils\\": "utils"
+        }
+    },
+    "authors": [
+        {
+            "name": "Matusal3m",
+            "email": "matusalemdedeus@gmail.com"
+        }
+    ]
+}
