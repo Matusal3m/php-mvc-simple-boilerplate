@@ -1,4 +1,4 @@
-<?= $this->layout('shared::layouts/default', ['pageName' => 'Não encontrada']) ?>
+<?= $this->layout('layouts::default', ['pageName' => 'Não encontrada']) ?>
 
 <main class="min-h-screen flex items-center justify-center bg-[#F5F5DC]">
     <div class="text-center">

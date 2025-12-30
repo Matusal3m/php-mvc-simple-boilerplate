@@ -9,6 +9,8 @@ $templates->registerFunction('formatDate', function ($date) {
 });
 
 $templates->addFolder('pages', __DIR__ . '/../views/pages');
-$templates->addFolder('shared', __DIR__ . '/../views/shared');
+
+$templates->addFolder('ui', __DIR__ . '/../views/shared/ui');
+$templates->addFolder('layouts', __DIR__ . '/../views/shared/layouts');
 
 return $templates;

@@ -20,12 +20,17 @@ class Database
 
     public string $password;
 
-    public function __construct(string $host, string $port, string $dbname, string  $user, string $password)
-    {
+    public function __construct(
+        string $host,
+        string $port,
+        string $dbname,
+        string $user,
+        string $password,
+    ) {
         $this->conn = pg_connect("
-            host=$host 
-            port=$port 
-            dbname=$dbname 
+            host=$host
+            port=$port
+            dbname=$dbname
             user=$user
             password=$password
         ");
@@ -41,7 +46,9 @@ class Database
     public function query(string $query): array
     {
         $rows = pg_query($this->conn, $query);
-        if (!$rows) return [];
+        if (!$rows) {
+            return [];
+        }
         return $this->resultToArray($rows);
     }
 
@@ -52,7 +59,9 @@ class Database
     public function queryParams(string $query, array $params): array
     {
         $rows = pg_query_params($this->conn, $query, $params);
-        if (!$rows) return [];
+        if (!$rows) {
+            return [];
+        }
         return $this->resultToArray($rows);
     }
 
@@ -62,7 +71,9 @@ class Database
     public function queryParamsFirst(string $query, array $params): mixed
     {
         $rows = pg_query_params($this->conn, $query, $params);
-        if (!$rows) return [];
+        if (!$rows) {
+            return [];
+        }
         return $this->resultToArray($rows)[0];
     }
 
