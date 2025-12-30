@@ -1,5 +1,6 @@
 <?php
 
+/** @var mixed $this */
 /** @var string $label */
 /** @var string $name */
 /** @var string $value */

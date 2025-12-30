@@ -1,4 +1,13 @@
-<?= $this->layout('layouts::default', ['pageName' => 'Não encontrada']) ?>
+<?php
+
+/**
+ * @var mixed $this
+ */
+
+$this->layout('layouts::default', [
+    'pageName' => 'Não encontrada'
+]);
+?>
 
 <main class="min-h-screen flex items-center justify-center bg-[#F5F5DC]">
     <div class="text-center">
@@ -6,3 +15,4 @@
         <p class="mt-4 text-lg text-[#A67C52]">Página não encontrada</p>
     </div>
 </main>
+
