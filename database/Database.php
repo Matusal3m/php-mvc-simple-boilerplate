@@ -10,6 +10,16 @@ class Database
 {
     private readonly Connection $conn;
 
+    public string $host;
+
+    public string $port;
+
+    public string $dbname;
+
+    public string $user;
+
+    public string $password;
+
     public function __construct(string $host, string $port, string $dbname, string  $user, string $password)
     {
         $this->conn = pg_connect("
@@ -25,13 +35,46 @@ class Database
         }
     }
 
-    public function query(string $query): Result
+    /**
+     * @return array|bool[]
+     */
+    public function query(string $query): array
     {
-        return pg_query($this->conn, $query);
+        $rows = pg_query($this->conn, $query);
+        if (!$rows) return [];
+        return $this->resultToArray($rows);
     }
 
-    public function queryParams(string $query, array &$params): Result
+    /**
+     * @param array<int,mixed> $params
+     * @return array|bool[]
+     */
+    public function queryParams(string $query, array $params): array
     {
-        return pg_query_params($this->conn, $query, $params);
+        $rows = pg_query_params($this->conn, $query, $params);
+        if (!$rows) return [];
+        return $this->resultToArray($rows);
+    }
+
+    /**
+     * @param array<int,mixed> $params
+     */
+    public function queryParamsFirst(string $query, array $params): mixed
+    {
+        $rows = pg_query_params($this->conn, $query, $params);
+        if (!$rows) return [];
+        return $this->resultToArray($rows)[0];
+    }
+
+    /**
+     * @return array|bool[]
+     */
+    private function resultToArray(Result $result): array
+    {
+        $rows = [];
+        while ($row = pg_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
     }
 }

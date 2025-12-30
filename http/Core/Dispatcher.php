@@ -3,9 +3,9 @@
 namespace Http\Core;
 
 use DI\Container;
+use Exception;
 use League\Plates\Engine;
-
-use function DI\get;
+use Utils\Logger;
 
 class Dispatcher
 {
@@ -19,6 +19,9 @@ class Dispatcher
     {
         $path = Router::normalizePath($path);
         $method = strtoupper($_SERVER['REQUEST_METHOD']);
+        // check for hidden method
+        if (isset($_REQUEST['_method'])) $method = strtoupper($_REQUEST['_method']);
+
         $foundPath = false;
         foreach (Router::routes() as $route) {
             if ($method !== $route['method']) continue;
@@ -29,7 +32,6 @@ class Dispatcher
             [$class, $name] = $route['controller'];
 
             $controller = $this->container->get($class);
-            $controller = get($class);
 
             $request = new Request($matches);
             $response = new Response($this->templates);
@@ -41,7 +43,7 @@ class Dispatcher
 
         if (!$foundPath) {
             http_response_code(404);
-            echo $this->templates->render('error::not_found');
+            echo $this->templates->render('pages::error/not_found');
         }
     }
 }

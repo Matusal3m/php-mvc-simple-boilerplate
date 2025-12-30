@@ -9,12 +9,10 @@
     "autoload": {
         "psr-4": {
             "Http\\": "http",
-            "Http\\Core\\": "http/core",
-            "Http\\Controllers\\": "http/controllers",
-            "Http\\Routes\\": "http/routes",
-            "App\\": "app",
+            "Gym\\": "app",
             "Database\\": "database",
-            "Utils\\": "utils"
+            "Utils\\": "utils",
+            "Public\\": "public"
         }
     },
     "authors": [

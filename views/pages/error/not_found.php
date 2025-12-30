@@ -1,4 +1,4 @@
-<?php $this->layout('shared::template', ['name' => '404']) ?>
+<?= $this->layout('shared::layouts/default', ['pageName' => 'Não encontrada']) ?>
 
 <main class="min-h-screen flex items-center justify-center bg-[#F5F5DC]">
     <div class="text-center">

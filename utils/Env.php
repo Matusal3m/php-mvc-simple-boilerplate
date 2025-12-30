@@ -8,6 +8,7 @@ class Env
     {
 
         $file = file_get_contents($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if (!$file) return;
         $lines = explode("\n", $file);
 
         foreach ($lines as $line) {
@@ -16,6 +17,7 @@ class Env
             }
 
             if (strpos($line, '=') !== false) {
+                $line = preg_replace('/\'|"/', '', $line);
                 putenv($line);
             }
         }

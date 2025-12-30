@@ -3,6 +3,7 @@
 namespace Http\Core;
 
 use League\Plates\Engine;
+use Http\Core\Http;
 
 class Response
 {
@@ -10,8 +11,7 @@ class Response
 
     public function __construct(
         private readonly Engine $templates
-    ) {
-    }
+    ) {}
 
     public function status(int $code): self
     {
@@ -27,9 +27,15 @@ class Response
 
     public function template(string $name, array $data = []): void
     {
+        if ($this->templates->exists($name . '/index')) {
+            http_response_code($this->response_code);
+            echo $this->templates->render($name . '/index', $data);
+            return;
+        }
+
         if (!$this->templates->exists($name)) {
             http_response_code(404);
-            echo $this->templates->render('error::not_found');
+            echo $this->templates->render('pages::error/not_found');
             return;
         }
 
@@ -41,5 +47,10 @@ class Response
     {
         http_response_code($this->response_code);
         echo json_encode($data, JSON_PRETTY_PRINT);
+    }
+
+    public function redirect(string $path)
+    {
+        Http::redirect($path);
     }
 }

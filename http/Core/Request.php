@@ -23,11 +23,22 @@ class Request
 
         if (!$validMethod) return null;
 
-        return json_decode(file_get_contents('php://input'), true) ?? [];
+        $body = file_get_contents('php://input');
+        if (!is_array($body) || !empty($body)) {
+            unset($_REQUEST['_method']);
+            return $_REQUEST ?? [];
+        }
+
+        return json_decode($body, true) ?? [];
+    }
+
+    public function file(string $filename): array|null
+    {
+        return isset($_FILES[$filename]) ? $_FILES[$filename] : null;
     }
 
     public function params(): array|null
     {
-        return $this->params();
+        return $this->params;
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Http\Routes;
+namespace Http;
 
-use Http\Controllers\HomeController;
+use Gym\Controllers\HomeController;
 use Http\Core\Router;
 
 Router::get('/', [HomeController::class, 'index']);
